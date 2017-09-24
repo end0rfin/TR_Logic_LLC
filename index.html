@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+	<meta charset="UTF-8">
+	<title>Товарная накладная</title>
+
+	<link rel="stylesheet" href="index.css">
+</head>
+<body>
+
+<section id="app_nakladnaya">
+	<header class="header">
+		<h1>Товарная накладная</h1>
+		<form  id="new_tovar" class="" v-on:submit.prevent="addTovar">
+		<table>
+		<tbody>
+			<tr>
+				<td>
+					<input id="add_tovar_name" class="new-tovar"
+					autofocus autocomplete="off"
+					placeholder="Наименование"
+					v-model="new_tovar.name">
+				</td>
+				<td>
+					<input id="add_tovar_count" class="new-tovar"
+					autofocus autocomplete="off"
+					placeholder="Количество"
+					v-model="new_tovar.count">
+				</td>
+				<td>
+					<input id="add_tovar_price" class="new-tovar"
+					autofocus autocomplete="off"
+					placeholder="Цена"
+					v-model="new_tovar.price">
+				</td>
+				<td>
+     				<input type="submit" class="new-tovar" value="+">
+				</td>
+			</tr>
+		</tbody>
+		</table>
+		</form>
+	</header>
+
+
+	<section class="main" v-cloak>
+		<table class="nakladnaya_table">
+			<thead>
+				<tr>
+					<th>№</th>
+					<th>Наименование</th>
+					<th>Количество</th>
+					<th>Цена</th>
+					<th></th>
+				</tr>
+			</thead>
+
+			<tbody>
+			<tr v-for="tovar in tovars"
+				class="tovar"
+				:key="tovar.id"
+				:class="{ completed: tovar.completed, editing: tovar == editedTovar_item }">
+				<td>{{ tovar.id }}</td>
+				<td :class="{ edited: tovar == editedTovar_item && editedTovar.name }" @dblclick="editTovar(tovar,'name')">
+					<div class="view">
+					  <label>{{ tovar.name }}</label>
+					</div>
+					<input class="tovar_name edit" type="text"
+					  v-model="tovar.name"
+					  v-tovar-focus="tovar == editedTovar_item"
+					  @blur="doneEdit(tovar)"
+					  @keyup.enter="doneEdit(tovar)"
+					  @keyup.esc="cancelEdit(tovar)">
+			  	</td>
+				<td :class="{ edited: tovar == editedTovar_item && editedTovar.count }" @dblclick="editTovar(tovar,'count')">
+					<div class="view">
+					  <label>{{ tovar.count }}</label>
+					</div>
+					<input class="tovar_count edit" type="text"
+					  v-model="tovar.count"
+					  v-tovar-focus="tovar == editedTovar_item"
+					  @blur="doneEdit(tovar)"
+					  @keyup.enter="doneEdit(tovar)"
+					  @keyup.esc="cancelEdit(tovar)">
+			  	</td>
+				<td :class="{ edited: tovar == editedTovar_item && editedTovar.price }"  @dblclick="editTovar(tovar,'price')">
+					<div class="view">
+					  <label>{{ tovar.price }}</label>
+					</div>
+					<input class="tovar_price edit" type="text"
+					  v-model="tovar.price"
+					  v-tovar-focus="tovar == editedTovar_item"
+					  @blur="doneEdit(tovar)"
+					  @keyup.enter="doneEdit(tovar)"
+					  @keyup.esc="cancelEdit(tovar)">
+			  	</td>
+				<td>
+					<button class="destroy" @click="removeTovar(tovar)"></button>
+			  	</td>
+			</tr>
+			<tr class="tovars_price_itog">
+				<td></td>
+				<td></td>
+				<td>ИТОГО:</td>
+				<td>{{ itogo_price }}</td>
+				<td></td>
+			</tr>
+			</tbody>
+		</table>
+	</section>
+
+</section>
+<!-- / .tovarapp -->
+<footer class="info">
+	<p>ВНИМАНИЕ: Двойной клик для редактирования</p>
+	<p>Тестовое задание подготовил <a href="http://sbludov.ru">Игорь Блудов</a></p>
+	<p>Пример: <a href="http://sbludov.ru/tovar_nakladnaya/index.html">Товарная накладная</a></p>
+</footer>
+	
+	<!-- Подключаем скрипты -->
+	<script src="https://unpkg.com/vue@2.4.4/dist/vue.js"></script>
+	<script src="tovar_nakladnaya.js"></script>
+</body>
+</html>
