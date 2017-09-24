@@ -1,6 +1,9 @@
 Тестовое задание для трудоустройства компания TR Logic LLC должность Front-End Developer (Vue.js).
 
 
+Ссылка на рабочий пример http://sbludov.ru/tovar_nakladnaya/index.html
+
+
 Добрый день. 
 В ответ на ваше резюме на вакансию FrontEnd Developer (Vue.js), мы просим Вас ещё раз прочитать обязанности, требования и условия: 
 Требования: 
